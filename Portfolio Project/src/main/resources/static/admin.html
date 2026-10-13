@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin | Portfolio</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/theme-init.js"></script>
+  <script src="/js/admin.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#admin-main">Skip to main content</a>
+  <main class="container admin" id="admin-main">
+    <div class="admin-bar">
+      <h1>Admin</h1>
+      <div class="row-actions">
+        <a class="btn btn-ghost btn-sm" href="/">View site</a>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn" type="button" hidden>Sign out</button>
+      </div>
+    </div>
+    <p class="form-status" id="status" role="status" aria-live="polite"></p>
+
+    <!-- Login -->
+    <section class="card" id="loginView" aria-labelledby="loginTitle" hidden>
+      <h2 id="loginTitle">Sign in</h2>
+      <form class="form" id="loginForm">
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Sign in</button>
+      </form>
+    </section>
+
+    <div id="dashboard" hidden>
+      <!-- Messages -->
+      <section class="card" aria-labelledby="msgTitle">
+        <h2 id="msgTitle">Contact messages</h2>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">Messages received through the contact form</caption>
+            <thead><tr><th scope="col">From</th><th scope="col">Subject</th><th scope="col">Message</th><th scope="col">Received</th><th scope="col">Actions</th></tr></thead>
+            <tbody id="messagesBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="card" aria-labelledby="projTitle">
+        <h2 id="projTitle">Projects</h2>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">Portfolio projects</caption>
+            <thead><tr><th scope="col">Order</th><th scope="col">Title</th><th scope="col">Technologies</th><th scope="col">Actions</th></tr></thead>
+            <tbody id="projectsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="formTitle">
+        <h2 id="formTitle">Add project</h2>
+        <form class="form" id="projectForm">
+          <input type="hidden" id="projectId">
+          <div class="two-col">
+            <div class="field"><label for="p-title">Title</label><input id="p-title" maxlength="120" required></div>
+            <div class="field"><label for="p-tech">Technologies (comma separated)</label><input id="p-tech" maxlength="300" required></div>
+          </div>
+          <div class="field"><label for="p-summary">Summary</label><textarea id="p-summary" rows="3" maxlength="1000" required></textarea></div>
+          <div class="two-col">
+            <div class="field"><label for="p-repo">Repository URL</label><input id="p-repo" type="url" maxlength="300" placeholder="https://"></div>
+            <div class="field"><label for="p-live">Live URL</label><input id="p-live" type="url" maxlength="300" placeholder="https://"></div>
+          </div>
+          <div class="two-col">
+            <div class="field"><label for="p-order">Display order</label><input id="p-order" type="number" min="0" max="10000" value="100" required></div>
+            <label class="check"><input id="p-featured" type="checkbox"> Featured</label>
+          </div>
+          <div class="row-actions">
+            <button class="btn btn-primary" type="submit" id="saveProject">Save project</button>
+            <button class="btn btn-ghost" type="button" id="cancelEdit" hidden>Cancel edit</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

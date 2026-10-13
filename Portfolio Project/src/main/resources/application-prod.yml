@@ -1,0 +1,27 @@
+# Production profile: PostgreSQL, TLS-only cookies, honour reverse-proxy headers.
+# Required environment variables: DB_URL, DB_USERNAME, DB_PASSWORD
+# (e.g. DB_URL=jdbc:postgresql://db.internal:5432/portfolio?sslmode=verify-full)
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 10000
+  flyway:
+    # PostgreSQL baseline is created by V1; sample content in V2 can be removed for real deployments.
+    enabled: true
+
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}   # bind to a specific internal IP/loopback; terminate TLS at a reverse proxy
+  forward-headers-strategy: framework     # trust X-Forwarded-* from the proxy (needed for rate limiting & HTTPS)
+  servlet:
+    session:
+      cookie:
+        secure: true
+
+logging:
+  level:
+    root: INFO
+    com.portfolio: INFO
